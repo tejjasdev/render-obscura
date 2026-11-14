@@ -1,0 +1,9 @@
+:{$PORT:10000} {
+    @unauthorized {
+        not header Authorization "Bearer {$AUTH_TOKEN}"
+        not query token={$AUTH_TOKEN}
+    }
+    respond @unauthorized "Unauthorized" 401
+
+    reverse_proxy 127.0.0.1:9222
+}
